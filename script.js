@@ -51,21 +51,55 @@ function playRound(playerSelection, computerSelection) {
     };
 }
 
+function isValidInput(input) {
+    if (input === 'rock' || input === 'paper' || input === 'scissors') {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+function promptPlayerPlay() {
+    let response = prompt('Choose your weapon! Type "Rock"/"r", "Paper"/"p", or "Scissors"/"s" (Case insensitive)')?.toLowerCase() ?? null
+    switch(response){
+        case 'r':
+            return 'rock';
+        case 'p':
+            return 'paper';
+        case 's':
+            return 'scissors';
+    }
+    return response
+}
+
 function game() {
-    let playerSelectionLower = playerSelection.toLowerCase()
     let playerWins = 0
     let computerWins = 0
     let ties = 0
-    for (i=0; i < 5; i++){
+    for (i=0; i < 5;){
         let computerSelection = computerPlay()
+        let input;
+        while (!isValidInput(input)){
+            input = promptPlayerPlay()
+            if (input === null || input === ''){
+                console.log("Game cancelled")
+                return
+            }
+        }
+        playerSelectionLower = input
+
         let result = playRound(playerSelectionLower, computerSelection)
+        if (result === 'tie'){
+            console.log(`It's a tie! Both player and computer selected ${playerSelectionLower}. Replay the round!`);
+            ties += 1;
+            continue;
+        }
+        // Increment to next round if result was not a tie
+        i++
         if (result === 'win'){
             console.log(`You Win! ${playerSelectionLower} beats ${computerSelection}`);
             playerWins += 1;
-        }
-        else if (result === 'tie'){
-            console.log(`It's a tie! Both player and computer selected ${playerSelectionLower}`);
-            ties += 1;
         }
         else {
             console.log(`You Lose! ${computerSelection} beats ${playerSelectionLower}`)
@@ -76,19 +110,10 @@ function game() {
     if (playerWins > computerWins) {
         console.log("Player won more rounds; therefore, the game! Congratulations")
     }
-    else if (playerWins === 0 && computerWins === 0) {
-        console.log("Every round was a tie. An even match!")
-    }
-    else if (playerWins === computerWins){
-        console.log("Players won and tied an equal amount. An even match!")
-    }
     else {
         console.log("Computer wins. Better luck next time!")
     };
 }
-
-
-game()
 // const playerSelection = "rock";
 // const computerSelection = computerPlay();
 // console.log(playRound(playerSelection, computerSelection));
