@@ -1,0 +1,149 @@
+/* style.css */
+
+html, 
+body {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(255, 255, 166);
+    display: flex;
+    flex-direction: column;
+    margin: 0% 8% 8%;
+    margin-top: 0px;
+}
+
+.header {
+}
+
+.body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px;
+}
+
+.selection-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-container {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.score-human,
+.score-computer {
+    display: flex;
+    justify-content: center;
+}
+
+
+.body .move-container {
+    filter: brightness(95%);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1%;
+    width: 90%;
+    margin: 28px 0px
+}
+
+.body .move-container :hover {
+    filter: hue-rotate(90deg);
+    transform: scale(1.1);
+    /* box-shadow: 0 0 1rem #9000ff; */
+    box-shadow: 0 0 1rem #00ff33;
+}
+
+.action {
+    max-width: 25%;
+    border-radius: 50%;
+    flex: 1 1 auto;
+    cursor:pointer;
+    transition-duration: .5s;
+    
+}
+
+h1 {
+    color: red;
+    font-weight: 500;
+    font-size: 48px;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+}
+
+h2 {
+    display: inline;
+    font-family: Roboto, sans-serif;
+    font-size: 28px;
+    text-align: center;
+    color: rgb(187, 0, 255);
+    margin: 0px
+}
+
+.typewriter {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    /*  border-right: .15em solid orange; The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    /*  letter-spacing: .025em; Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end;
+}
+
+.console-container h2 {
+    display: block;
+    text-align: left;
+    color:rgb(91, 135, 25);
+    margin-top: 75px;
+}
+
+#console {
+    max-height: 300px;
+    min-height:300px;
+    height: 300px;
+    margin-top: 0px;
+    flex: 1 1 0;
+    background-color: greenyellow;
+    border-style: ridge;
+    /* border-style: ridge; */
+    border-width: 14px;
+    border-color: rgb(91, 135, 25);
+    height: 25%;
+    padding: 16px;
+    overflow-y:auto
+}
+
+.console h2 {
+    color: rgb(50, 74, 12);
+}
+
+#play-again-btn{
+    margin: 16px 0px;
+    padding: 8px 16px;
+    background-color: hotpink;
+    border-radius: 25%;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  

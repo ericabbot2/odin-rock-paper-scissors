@@ -4,11 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src='script.js'></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    
+    <script src='script.js' defer></script>
+    <link rel='stylesheet' href='css/style.css'>
 
     <title>Rock Paper Scissors!</title>
 </head>
 <body>
-    <button onclick="game()">Let's play 5 rounds!</button>
+    <div class='header'>
+        <h1>Rock Paper Scissors!</h1>
+    </div>
+    <div class='body'>
+        <div class='selection-box'>
+            <h2 class='typewriter'>Choose wisely! First one to 5 wins!</h2>
+            <div class='move-container'>
+                <img id="rock" class="action" src="res/rock.png">
+                <img id="paper" class="action" src="res/paper.png">
+                <img id="scissors" class="action" src="res/scissors.png">
+            </div>
+        </div>
+        <div class='score-container'>
+            <div class='score-human'>
+                <h2 class='player-name'>Human:&nbsp</h2></h2><h2 id="human-score">0</h2>
+            </div>
+            <div class='score-computer'>
+                <h2 class='player-name'>Computer:&nbsp</h2></h2><h2 id="computer-score">0</h2>
+            </div>
+            
+            <button id='play-again-btn' class='hidden'>Play again?</button>
+        </div>
+        <div class='console-container'>
+            <h2>Action Log</h2>
+            <div id='console'></div>
+        </div>
+        
+    </div>
+    <div class='footer'>
+        <a href="https://www.vecteezy.com/free-vector/cartoon">Cartoon Vectors by Vecteezy</a>
+    </div>
 </body>
 </html>

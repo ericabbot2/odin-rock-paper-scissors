@@ -1,3 +1,17 @@
+actionButtons = document.querySelectorAll('.action');
+actionButtons.forEach(btn => {
+    btn.addEventListener('click', playRound)
+});
+
+playAgainButton = document.querySelector('#play-again-btn')
+playAgainButton.addEventListener('click', playAgain)
+
+consoleDiv = document.querySelector('#console');
+humanScore = document.querySelector('#human-score');
+computerScore = document.querySelector('#computer-score');
+
+let playing = true;
+
 function computerPlay() {
     let randomNum = (Math.random()*100)
     if (randomNum <= 33){
@@ -35,21 +49,89 @@ function playerTies(playerSelection, computerSelection) {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    // playerSelection is passed as lowercase
-    if (playerWins(playerSelection, computerSelection)) {
-        //console.log(`You Win! ${playerSelectionLower} beats ${computerSelection}`);
-        return "win";
-    }
-    else if (playerTies(playerSelection, computerSelection)){
-        //console.log(`It's a tie! Both player and computer selected ${playerSelectionLower}`);
-        return "tie";
+function incrementScore(playerWon){
+    if (playerWon){
+        let humanWinTotal = parseInt(humanScore.textContent);
+        humanScore.textContent = humanWinTotal + 1;
     }
     else {
-        //console.log(`You Lose! ${computerSelection} beats ${playerSelectionLower}`);
-        return "lose";
-    };
+        let computerWinTotal = parseInt(computerScore.textContent);
+        computerScore.textContent = computerWinTotal + 1;
+    }
+
 }
+
+function playAgain(e) {
+    playing = true;
+    playAgainButton.classList.toggle('hidden')
+    computerScore.textContent = 0;
+    humanScore.textContent = 0;
+    let header = document.createElement('h1');
+    header.textContent = "A new game begins!"
+    header.style.color = "hotpink";
+    header.style.margin = '0px'
+    header.style.fontSize = '24px'
+    consoleDiv.prepend(header);
+    
+}
+
+function playRound(e) {
+
+
+    if (!playing) {
+        alert("Start a new game to play again!")
+        return
+    }
+
+    let para = document.createElement('p')
+    let computerSelection = computerPlay();
+    let playerSelection = e.target.id
+    // playerSelection is passed as lowercase
+    if (playerWins(playerSelection, computerSelection)) {
+        para.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+        incrementScore(true);
+
+    }
+    else if (playerTies(playerSelection, computerSelection)){
+        para.textContent =  `It's a tie! Both player and computer selected ${playerSelection}`
+
+    }
+    else {
+        para.textContent =  `You Lose! ${computerSelection} beats ${playerSelection}`
+        incrementScore(false);
+    };
+    
+    consoleDiv.prepend(para)
+
+    let playerWinCount = parseInt(humanScore.textContent);
+    let computerWinCount = parseInt(computerScore.textContent);
+    
+    if (computerWinCount === 5 || playerWinCount === 5) {
+        let header = document.createElement('h1');
+        header.style.margin = '0px'
+        header.style.fontSize = '24px'
+        if (computerWinCount === 5) {
+            header.textContent = 'Game Over, Computer Won!';
+        }
+        else {
+            header.textContent = 'Game Over, Player Won!';
+        }
+        consoleDiv.prepend(header);
+        playing = false;
+        
+        playAgainButton.classList.toggle('hidden')
+        return;
+    }
+
+}
+
+// function playGame() {
+//     let playing = true;
+
+//     while (playing) {
+
+//     }
+// }
 
 function isValidInput(input) {
     if (input === 'rock' || input === 'paper' || input === 'scissors') {
@@ -72,48 +154,3 @@ function promptPlayerPlay() {
     }
     return response
 }
-
-function game() {
-    let playerWins = 0
-    let computerWins = 0
-    let ties = 0
-    for (i=0; i < 5;){
-        let computerSelection = computerPlay()
-        let input;
-        while (!isValidInput(input)){
-            input = promptPlayerPlay()
-            if (input === null || input === ''){
-                console.log("Game cancelled")
-                return
-            }
-        }
-        playerSelectionLower = input
-
-        let result = playRound(playerSelectionLower, computerSelection)
-        if (result === 'tie'){
-            console.log(`It's a tie! Both player and computer selected ${playerSelectionLower}. Replay the round!`);
-            ties += 1;
-            continue;
-        }
-        // Increment to next round if result was not a tie
-        i++
-        if (result === 'win'){
-            console.log(`You Win! ${playerSelectionLower} beats ${computerSelection}`);
-            playerWins += 1;
-        }
-        else {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelectionLower}`)
-            computerWins += 1;
-        }
-    }
-    console.log(`Results are in! Player won ${playerWins} rounds, Computer won ${computerWins} round, and there were ${ties} ties!`)
-    if (playerWins > computerWins) {
-        console.log("Player won more rounds; therefore, the game! Congratulations")
-    }
-    else {
-        console.log("Computer wins. Better luck next time!")
-    };
-}
-// const playerSelection = "rock";
-// const computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
